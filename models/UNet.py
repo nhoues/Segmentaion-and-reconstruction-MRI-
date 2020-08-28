@@ -1,7 +1,7 @@
 from collections import OrderedDict
 
-import numpy as np # linear algebra
-import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
+import numpy as np  # linear algebra
+import pandas as pd  # data processing, CSV file I/O (e.g. pd.read_csv)
 
 
 import torch
@@ -9,13 +9,15 @@ from torch import nn
 import torch.nn.functional as F
 import torch.optim as optim
 
-class UNet(nn.Module):
 
-    def __init__(self, in_channels=3, out_channels=1, init_features=32 , segmentation = True):
+class UNet(nn.Module):
+    def __init__(
+        self, in_channels=3, out_channels=1, init_features=32, segmentation=True
+    ):
         super(UNet, self).__init__()
-        
+
         self.segmentation = segmentation
-        
+
         features = init_features
         self.encoder1 = UNet._block(in_channels, features, name="enc1")
         self.pool1 = nn.MaxPool2d(kernel_size=2, stride=2)
@@ -69,11 +71,12 @@ class UNet(nn.Module):
         dec1 = self.upconv1(dec2)
         dec1 = torch.cat((dec1, enc1), dim=1)
         dec1 = self.decoder1(dec1)
-        
-        if self.segmentation : 
+
+        if self.segmentation:
             return torch.sigmoid(self.conv(dec1))
-        else : 
+        else:
             return self.conv(dec1)
+
     @staticmethod
     def _block(in_channels, features, name):
         return nn.Sequential(
