@@ -1,0 +1,11 @@
+loss/__pycache__/
+models/__pycache__/
+Utils/__pycache__/
+__pycache__
+.ipynb_checkpoints/ 
+*.pt
+*.nii
+input/hippocampal-croped-mri/
+models_outputs
+trained_model 
+
